@@ -1,4 +1,5 @@
-const countConstruct = (targetWord, wordBank) => {
+const countConstruct = (targetWord, wordBank,cache={}) => {
+    if (targetWord in cache) return cache[targetWord]
     //checking current target
     if (targetWord === "") return 1;
     //iterating over wordbank for all word combinations
@@ -6,10 +7,11 @@ const countConstruct = (targetWord, wordBank) => {
     for (let word of wordBank) {
         //checking whether target word starts with current word
         if (targetWord.startsWith(word)) {
-            const numberOfWay = countConstruct(targetWord.slice(word.length), wordBank)
+            const numberOfWay = countConstruct(targetWord.slice(word.length), wordBank,cache)
             totalWays += numberOfWay
         }
     }
+    cache[targetWord] = totalWays
     return totalWays
 }
 
